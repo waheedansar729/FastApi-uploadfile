@@ -15,6 +15,7 @@ if not os.path.exists(UPLOAD_DIR):
 # step 1: Mount the uploads directory to serve static files
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+# step 2: Create an endpoint to handle file uploads
 @app.post("/upload")
 def upload_file(file: UploadFile = File(...)):
     filename = file.filename
