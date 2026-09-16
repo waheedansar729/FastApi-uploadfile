@@ -30,6 +30,7 @@ def upload_file(file: UploadFile = File(...)):
             "file_url": f"http://127.0.0.1:8000/uploads/{filename}"
         }
 
+# step 3: Create an endpoint to retrieve the uploaded files
 @app.get("/files")
 def get_files(filename: str):
     file_path = os.path.join(UPLOAD_DIR, filename)
