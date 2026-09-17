@@ -12,9 +12,10 @@ app = FastAPI()
 UPLOAD_DIR = "uploads"
 if not os.path.exists(UPLOAD_DIR):
     os.makedirs(UPLOAD_DIR)
-
+# step 1: Mount the uploads directory to serve static files
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
+# step 2: Create an endpoint to handle file uploads
 @app.post("/upload")
 def upload_file(file: UploadFile = File(...)):
     filename = file.filename
@@ -29,6 +30,7 @@ def upload_file(file: UploadFile = File(...)):
             "file_url": f"http://127.0.0.1:8000/uploads/{filename}"
         }
 
+# step 3: Create an endpoint to retrieve the uploaded files
 @app.get("/files")
 def get_files(filename: str):
     file_path = os.path.join(UPLOAD_DIR, filename)
